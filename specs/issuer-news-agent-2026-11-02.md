@@ -75,7 +75,7 @@
 | `reporting_period` | `TEXT NULL` — необязательный период финансовой отчётности (например, «9 месяцев 2026» или «I полугодие 2026») |
 | `news_context` | Обязательный (`NOT NULL`) `jsonb` с фактами и аналитическим выводом успешного анализа |
 | `summary_category` | `TEXT NOT NULL CHECK (summary_category IN ('positive', 'negative', 'neutral', 'mixed'))` — категория влияния |
-| `summary_value` | Обязательная (`NOT NULL`) знаковая оценка влияния от -50 до +50; определяет LLM |
+| `summary_value` | `SMALLINT NOT NULL CHECK (summary_value BETWEEN -50 AND 50)` — целочисленная оценка влияния, определяемая LLM |
 | `created_at` | Обязательное время создания записи (`timestamptz NOT NULL DEFAULT now()`), заполняется PostgreSQL автоматически |
 
 **Согласовано по обязательности полей:** `issuer_id`, `news_context`, `summary_category`, `summary_value` и `created_at` — обязательные (`NOT NULL`); `news_id` и `reporting_period` — необязательные (`NULL` допускается). `created_at` получает значение автоматически (`DEFAULT now()`). Обязательность остальных полей обсуждается отдельно; DDL ещё не утверждён.
