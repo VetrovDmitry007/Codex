@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a19e53-a460-7080-9ce7-cf002897a01a"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Потому что `Command(goto=\"review\")` не отменяет статический переход `analyze → archive`. После `analyze` LangGraph учитывает оба маршрута, поэтому запускаются и `archive`, и `review`; их порядок не гарантирован.\n\nЕсли нужен выбор ровно одной ветки, используйте один механизм маршрутизации: либо оставьте `Command(goto=...)` и удалите статический переход, либо задайте условные рёбра и уберите `Command` из `analyze`."}}
+{"type":"turn.completed","usage":{"input_tokens":90546,"cached_input_tokens":74880,"cache_write_input_tokens":0,"output_tokens":1961,"reasoning_output_tokens":1453}}

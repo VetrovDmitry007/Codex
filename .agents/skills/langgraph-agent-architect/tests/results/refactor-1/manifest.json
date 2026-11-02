@@ -1,0 +1,66 @@
+{
+  "created_at_utc": "2026-11-02T22:28:17.937890+00:00",
+  "base_commit": "ea747882e3e7ec2f70556523d214c4f412380cda",
+  "baseline_skill_blob_sha": "a283434e0c1fb85483bcb4f73234bf78579b6056",
+  "active_skill_sha256": "6a61528ca30a9547bc38b0bd79ee14565f45f3b2cbcec236a0ea3942e1b4624d",
+  "codex_cli": "codex-cli 0.163.0-alpha.11.1",
+  "model_requested": "gpt-6-luna",
+  "reasoning_effort": "high",
+  "sandbox": "read-only",
+  "ignore_user_config": true,
+  "max_parallel_sessions": 4,
+  "runs": [
+    {
+      "id": "S01-main-treatment",
+      "scenario": "S1",
+      "variant": "treatment",
+      "model": "gpt-6-luna",
+      "reasoning": "high",
+      "session_id": "01a19e5e-de78-7411-91a4-3fa0a9d2d06a",
+      "turns": 3,
+      "return_code": 0,
+      "response": ".agents/skills/langgraph-agent-architect/tests/results/refactor-1/S01-main-treatment.md",
+      "trace_dir": ".agents/skills/langgraph-agent-architect/tests/results/refactor-1/traces",
+      "status": "captured"
+    },
+    {
+      "id": "S07-main-treatment",
+      "scenario": "S7",
+      "variant": "treatment",
+      "model": "gpt-6-luna",
+      "reasoning": "high",
+      "session_id": "01a19e5e-de96-73a1-8bfe-cf50f7942ead",
+      "turns": 2,
+      "return_code": 0,
+      "response": ".agents/skills/langgraph-agent-architect/tests/results/refactor-1/S07-main-treatment.md",
+      "trace_dir": ".agents/skills/langgraph-agent-architect/tests/results/refactor-1/traces",
+      "status": "captured"
+    },
+    {
+      "id": "S08-main-treatment",
+      "scenario": "S8",
+      "variant": "treatment",
+      "model": "gpt-6-luna",
+      "reasoning": "high",
+      "session_id": "01a19e5e-de78-7d91-93bb-2c685d10a29f",
+      "turns": 3,
+      "return_code": 0,
+      "response": ".agents/skills/langgraph-agent-architect/tests/results/refactor-1/S08-main-treatment.md",
+      "trace_dir": ".agents/skills/langgraph-agent-architect/tests/results/refactor-1/traces",
+      "status": "captured"
+    },
+    {
+      "id": "S12-main-treatment",
+      "scenario": "S12",
+      "variant": "treatment",
+      "model": "gpt-6-luna",
+      "reasoning": "high",
+      "session_id": "01a19e5e-de8b-7ce3-81ab-a9c4bf848a5b",
+      "turns": 1,
+      "return_code": 0,
+      "response": ".agents/skills/langgraph-agent-architect/tests/results/refactor-1/S12-main-treatment.md",
+      "trace_dir": ".agents/skills/langgraph-agent-architect/tests/results/refactor-1/traces",
+      "status": "captured"
+    }
+  ]
+}

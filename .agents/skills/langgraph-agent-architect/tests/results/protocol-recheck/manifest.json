@@ -1,0 +1,66 @@
+{
+  "created_at_utc": "2026-11-02T22:26:00.555805+00:00",
+  "base_commit": "ea747882e3e7ec2f70556523d214c4f412380cda",
+  "baseline_skill_blob_sha": "a283434e0c1fb85483bcb4f73234bf78579b6056",
+  "active_skill_sha256": "4afdde7f0b108bbd3332bebfb7429bed15f2e8f96057a15cb33ee90f17c6369c",
+  "codex_cli": "codex-cli 0.163.0-alpha.11.1",
+  "model_requested": "gpt-6-luna",
+  "reasoning_effort": "high",
+  "sandbox": "read-only",
+  "ignore_user_config": true,
+  "max_parallel_sessions": 4,
+  "runs": [
+    {
+      "id": "S07-main-control",
+      "scenario": "S7",
+      "variant": "control",
+      "model": "gpt-6-luna",
+      "reasoning": "high",
+      "session_id": "01a19e5d-a123-7c52-ada8-77e2453691fb",
+      "turns": 2,
+      "return_code": 0,
+      "response": ".agents/skills/langgraph-agent-architect/tests/results/protocol-recheck/S07-main-control.md",
+      "trace_dir": ".agents/skills/langgraph-agent-architect/tests/results/protocol-recheck/traces",
+      "status": "captured"
+    },
+    {
+      "id": "S07-main-treatment",
+      "scenario": "S7",
+      "variant": "treatment",
+      "model": "gpt-6-luna",
+      "reasoning": "high",
+      "session_id": "01a19e5d-a123-79a3-963c-9d3f0050b785",
+      "turns": 2,
+      "return_code": 0,
+      "response": ".agents/skills/langgraph-agent-architect/tests/results/protocol-recheck/S07-main-treatment.md",
+      "trace_dir": ".agents/skills/langgraph-agent-architect/tests/results/protocol-recheck/traces",
+      "status": "captured"
+    },
+    {
+      "id": "S09-main-control",
+      "scenario": "S9",
+      "variant": "control",
+      "model": "gpt-6-luna",
+      "reasoning": "high",
+      "session_id": "01a19e5d-a108-7090-9b43-c1cf400f66af",
+      "turns": 2,
+      "return_code": 0,
+      "response": ".agents/skills/langgraph-agent-architect/tests/results/protocol-recheck/S09-main-control.md",
+      "trace_dir": ".agents/skills/langgraph-agent-architect/tests/results/protocol-recheck/traces",
+      "status": "captured"
+    },
+    {
+      "id": "S09-main-treatment",
+      "scenario": "S9",
+      "variant": "treatment",
+      "model": "gpt-6-luna",
+      "reasoning": "high",
+      "session_id": "01a19e5d-a108-7a30-9b24-6eb692d073e0",
+      "turns": 2,
+      "return_code": 0,
+      "response": ".agents/skills/langgraph-agent-architect/tests/results/protocol-recheck/S09-main-treatment.md",
+      "trace_dir": ".agents/skills/langgraph-agent-architect/tests/results/protocol-recheck/traces",
+      "status": "captured"
+    }
+  ]
+}
