@@ -77,7 +77,7 @@
 | `summary_category` | `TEXT NOT NULL CHECK (summary_category IN ('positive', 'negative', 'neutral', 'mixed'))` — категория влияния |
 | `summary_value` | `SMALLINT NOT NULL CHECK (summary_value BETWEEN -50 AND 50)` — целочисленная оценка влияния, определяемая LLM |
 | `created_at` | Обязательное время создания записи (`timestamptz NOT NULL DEFAULT now()`), заполняется PostgreSQL автоматически |
-| `update_at` | Время последнего обновления существующей записи; при повторном анализе обновляется, тип и начальное значение обсуждаются отдельно |
+| `update_at` | `TIMESTAMPTZ NULL` — при создании записи `NULL`, при повторном анализе устанавливается текущее время |
 
 **Ограничение уникальности:** `UNIQUE (news_id)` — для каждой исходной новости допускается только одна запись анализа. `news_id` обязателен (`BIGINT NOT NULL`), но внешний ключ на `issuer_news` не создаётся.
 
