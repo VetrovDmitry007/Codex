@@ -78,6 +78,7 @@ db/
 Назначение модулей:
 
 - `agent.py` — построение и маршрутизация `StateGraph`, `get_graph()`, ручной запуск `run_graph()`; отдельного CLI-модуля не создавать.
+- **Инициализация LLM (согласовано):** использовать существующие адаптеры и настройки моделей BondNavigator. Для `agent_llm`, `summary_llm`, `analysis_llm` передавать конфигурацию моделей при создании графа через `get_graph()`; независимые привязки `bind_tools(...)`, `bind(...)`, `with_structured_output(..., include_raw=True)` сохраняются. Не разрабатывать внутри `agents/analysis_news/` отдельный слой провайдеров или собственную систему конфигурации. Точный интерфейс передачи конфигурации и совместимость с существующими адаптерами уточняются по исходному коду перед реализацией.
 - `models.py` — `AgentState` и типизированные контракты `NewsAnalysisResult`, `NewsContext`, `NewsFact` через `TypedDict`.
 - `nodes.py` — функции узлов графа: `assistant`, `summarize`, `validate_summary`, `analyze_result`, `validate_result`, `check_existing`, `save_result`; не выносить каждый узел в отдельный файл.
 - `tools.py` — `fetch_web_page` и `find_additional_sources`.
