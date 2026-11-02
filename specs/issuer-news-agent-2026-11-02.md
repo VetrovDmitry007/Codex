@@ -72,7 +72,7 @@
 | `id` | `BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY` — автоматически создаваемый идентификатор записи |
 | `issuer_id` | Обязательная связь с `public.issuers.id` |
 | `news_id` | Необязательная ссылка на исходную запись `issuer_news` |
-| `reporting_period` | Необязательный (`NULL`) период финансовой отчётности, когда применим |
+| `reporting_period` | `TEXT NULL` — необязательный период финансовой отчётности (например, «9 месяцев 2026» или «I полугодие 2026») |
 | `news_context` | Обязательный (`NOT NULL`) `jsonb` с фактами и аналитическим выводом успешного анализа |
 | `summary_category` | Обязательная (`NOT NULL`) категория влияния: `positive`, `negative`, `neutral`, `mixed` |
 | `summary_value` | Обязательная (`NOT NULL`) знаковая оценка влияния от -50 до +50; определяет LLM |
