@@ -54,6 +54,39 @@
 - **Согласовано:** ограничивать число шагов ReAct-цикла параметром `max_iterations: int = 8`. Значение по умолчанию — 8, его можно изменить при запуске. При достижении лимита агент пытается сформировать корректный итоговый результат на основе уже собранных данных. Если это невозможно, возвращает `status = "error"` с причиной в `reason`; запись в `news_analysis` не создаётся. Перед сохранением успешного результата выполняется проверка.
 - **Согласовано:** если итоговый JSON, сформированный LLM, некорректен, разрешается одна повторная попытка исправить результат. Исправленный JSON повторно валидируется до сохранения. Если повторная попытка также не прошла валидацию, возвращается `status = "error"` с краткой причиной в `reason`; запись в `news_analysis` не создаётся. Попытка исправления JSON входит в общий лимит `max_iterations` (по умолчанию 8) и не предоставляет дополнительных шагов сверх лимита.
 
+### Архитектура каталогов и модулей (согласовано)
+
+Агент размещается в отдельном корневом пакете **`agents/analysis_news/`** (не `agents/issuer_news/`). Новые вложенные подсистемы и слои без необходимости не создавать.
+
+```text
+agents/
+└── analysis_news/
+    ├── __init__.py
+    ├── agent.py
+    ├── models.py
+    ├── nodes.py
+    ├── tools.py
+    ├── prompts.py
+    └── validation.py
+
+db/
+├── postgres.py                # существующий PostgresStorage
+└── extensions/
+    └── news_analysis.py       # новый mixin NewsAnalysisStorage
+```
+
+Назначение модулей:
+
+- `agent.py` — построение и маршрутизация `StateGraph`, `get_graph()`, ручной запуск `run_graph()`; отдельного CLI-модуля не создавать.
+- `models.py` — `AgentState` и типизированные контракты `NewsAnalysisResult`, `NewsContext`, `NewsFact` через `TypedDict`.
+- `nodes.py` — функции узлов графа: `assistant`, `summarize`, `validate_summary`, `analyze_result`, `validate_result`, `check_existing`, `save_result`; не выносить каждый узел в отдельный файл.
+- `tools.py` — `fetch_web_page` и `find_additional_sources`.
+- `prompts.py` — три отдельных согласованных `SystemMessage` для `agent_llm`, `summary_llm`, `analysis_llm`.
+- `validation.py` — вспомогательные детерминированные проверки суммаризации и результата, вызываемые из узлов `nodes.py`.
+- `db/extensions/news_analysis.py` — `NewsAnalysisStorage`, использующий существующий пул `PostgresStorage` для проверки, чтения и сохранения анализа.
+
+Существующие каталоги `analysis/`, `data_sources/`, `models/`, `workflows/` и остальная структура проекта не переносятся и не изменяются ради этого агента. На данном этапе это согласованная схема размещения будущих файлов, а не подтверждение их создания.
+
 ### SystemMessage для узла `assistant` / `agent_llm` (согласовано)
 
 ```text
