@@ -76,9 +76,9 @@
 | `news_context` | Обязательный (`NOT NULL`) `jsonb` с фактами и аналитическим выводом успешного анализа |
 | `summary_category` | Обязательная (`NOT NULL`) категория влияния: `positive`, `negative`, `neutral`, `mixed` |
 | `summary_value` | Обязательная (`NOT NULL`) знаковая оценка влияния от -50 до +50; определяет LLM |
-| `created_at` | Время создания записи |
+| `created_at` | Обязательное время создания записи (`timestamptz NOT NULL DEFAULT now()`), заполняется PostgreSQL автоматически |
 
-**Согласовано по обязательности полей:** `issuer_id`, `news_context`, `summary_category` и `summary_value` — обязательные (`NOT NULL`); `news_id` и `reporting_period` — необязательные (`NULL` допускается). Обязательность остальных полей обсуждается отдельно; DDL ещё не утверждён.
+**Согласовано по обязательности полей:** `issuer_id`, `news_context`, `summary_category`, `summary_value` и `created_at` — обязательные (`NOT NULL`); `news_id` и `reporting_period` — необязательные (`NULL` допускается). `created_at` получает значение автоматически (`DEFAULT now()`). Обязательность остальных полей обсуждается отдельно; DDL ещё не утверждён.
 
 **Согласованные значения `summary_category`:**
 
