@@ -604,7 +604,7 @@ class VerifyAnalysisResult(TypedDict):
 
 ## 5. Данные результата и предполагаемое хранение
 
-**Согласовано название:** `public.news_analysis` (две части через одно подчёркивание). Таблица хранит результаты анализа новостей эмитентов; обязательная привязка — к эмитенту. Существующая таблица `issuer_score` не изменяется. Предварительно обсуждались следующие столбцы (это **не утверждённая DDL-миграция**):
+**Согласовано название:** `public.news_analysis` (две части через одно подчёркивание). Таблица хранит результаты анализа новостей эмитентов; обязательная привязка — к эмитенту. Существующая таблица `issuer_score` не изменяется. **DDL таблицы согласован**; ниже приведена утверждённая целевая схема. SQL пока не выполнялся в PostgreSQL. Перед применением проверить фактический тип `public.issuers(id)` и существование таблицы. Поля:
 
 | Поле | Назначение |
 | --- | --- |
@@ -618,11 +618,37 @@ class VerifyAnalysisResult(TypedDict):
 | `created_at` | Обязательное время создания записи (`timestamptz NOT NULL DEFAULT now()`), заполняется PostgreSQL автоматически |
 | `update_at` | `TIMESTAMPTZ NULL` — при создании записи `NULL`, при повторном анализе устанавливается текущее время |
 
+**Согласованный DDL (PostgreSQL):**
+
+```sql
+CREATE TABLE public.news_analysis (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    issuer_id BIGINT NOT NULL REFERENCES public.issuers(id),
+    news_id BIGINT NOT NULL,
+    reporting_period TEXT,
+    news_context JSONB NOT NULL,
+    summary_category TEXT NOT NULL,
+    summary_value SMALLINT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    update_at TIMESTAMPTZ,
+
+    CONSTRAINT uq_news_analysis_news_id UNIQUE (news_id),
+
+    CONSTRAINT ck_news_analysis_summary_category
+        CHECK (summary_category IN ('positive', 'negative', 'neutral', 'mixed')),
+
+    CONSTRAINT ck_news_analysis_summary_value
+        CHECK (summary_value BETWEEN -50 AND 50)
+);
+```
+
+DDL соответствует успешному `NewsAnalysisResult`; `status`, `reason`, `created_at` и `update_at` из результата LLM не сохраняются напрямую: статус `success` — условие сохранения, временными метками управляет PostgreSQL и слой хранения. Статусы `skipped`, `impact_unknown`, `error` в таблицу не записывать. Дополнительные индексы не создавать: `UNIQUE (news_id)` обеспечивает индекс для проверки существующей записи и `UPSERT`. Вложенную структуру `news_context` проверяет Python-узел `validate_result`, без дополнительных `CHECK` на `JSONB`.
+
 **Ограничение уникальности:** `UNIQUE (news_id)` — для каждой исходной новости допускается только одна запись анализа. `news_id` обязателен (`BIGINT NOT NULL`), но внешний ключ на `issuer_news` не создаётся.
 
 **Повторный анализ:** параметр запуска `force_reanalysis: bool = False`. Если для `news_id` анализ уже сохранён и `force_reanalysis = False`, повторный анализ пропускается. Для этого случая результат выполнения имеет `status = "skipped"`. При `force_reanalysis = True` анализ выполняется повторно, а существующая запись в `news_analysis` обновляется по `news_id` без создания дубликата. При обновлении `created_at` сохраняет первоначальное значение, а `update_at` фиксирует время обновления. Ограничение `UNIQUE (news_id)` сохраняется.
 
-**Согласовано по обязательности полей:** `issuer_id`, `news_id`, `news_context`, `summary_category`, `summary_value` и `created_at` — обязательные (`NOT NULL`); `reporting_period` — необязательное (`NULL` допускается). `created_at` получает значение автоматически (`DEFAULT now()`). DDL ещё не утверждён.
+**Согласовано по обязательности полей:** `issuer_id`, `news_id`, `news_context`, `summary_category`, `summary_value` и `created_at` — обязательные (`NOT NULL`); `reporting_period` — необязательное (`NULL` допускается). `created_at` получает значение автоматически (`DEFAULT now()`). Утверждённый DDL приведён выше; миграция ещё не применялась.
 
 **Согласованные значения `summary_category`:**
 
