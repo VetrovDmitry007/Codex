@@ -77,10 +77,11 @@
 | `summary_category` | `TEXT NOT NULL CHECK (summary_category IN ('positive', 'negative', 'neutral', 'mixed'))` — категория влияния |
 | `summary_value` | `SMALLINT NOT NULL CHECK (summary_value BETWEEN -50 AND 50)` — целочисленная оценка влияния, определяемая LLM |
 | `created_at` | Обязательное время создания записи (`timestamptz NOT NULL DEFAULT now()`), заполняется PostgreSQL автоматически |
+| `update_at` | Время последнего обновления существующей записи; при повторном анализе обновляется, тип и начальное значение обсуждаются отдельно |
 
 **Ограничение уникальности:** `UNIQUE (news_id)` — для каждой исходной новости допускается только одна запись анализа. `news_id` обязателен (`BIGINT NOT NULL`), но внешний ключ на `issuer_news` не создаётся.
 
-**Повторный анализ:** параметр запуска `force_reanalysis: bool = False`. Если для `news_id` анализ уже сохранён и `force_reanalysis = False`, повторный анализ пропускается. При `force_reanalysis = True` анализ выполняется повторно, а существующая запись в `news_analysis` обновляется по `news_id` без создания дубликата. Ограничение `UNIQUE (news_id)` сохраняется.
+**Повторный анализ:** параметр запуска `force_reanalysis: bool = False`. Если для `news_id` анализ уже сохранён и `force_reanalysis = False`, повторный анализ пропускается. При `force_reanalysis = True` анализ выполняется повторно, а существующая запись в `news_analysis` обновляется по `news_id` без создания дубликата. При обновлении `created_at` сохраняет первоначальное значение, а `update_at` фиксирует время обновления. Ограничение `UNIQUE (news_id)` сохраняется.
 
 **Согласовано по обязательности полей:** `issuer_id`, `news_id`, `news_context`, `summary_category`, `summary_value` и `created_at` — обязательные (`NOT NULL`); `reporting_period` — необязательное (`NULL` допускается). `created_at` получает значение автоматически (`DEFAULT now()`). DDL ещё не утверждён.
 
