@@ -74,7 +74,7 @@
 | `news_id` | `BIGINT NULL` — необязательный идентификатор исходной новости, без ограничения `FOREIGN KEY` |
 | `reporting_period` | `TEXT NULL` — необязательный период финансовой отчётности (например, «9 месяцев 2026» или «I полугодие 2026») |
 | `news_context` | Обязательный (`NOT NULL`) `jsonb` с фактами и аналитическим выводом успешного анализа |
-| `summary_category` | Обязательная (`NOT NULL`) категория влияния: `positive`, `negative`, `neutral`, `mixed` |
+| `summary_category` | `TEXT NOT NULL CHECK (summary_category IN ('positive', 'negative', 'neutral', 'mixed'))` — категория влияния |
 | `summary_value` | Обязательная (`NOT NULL`) знаковая оценка влияния от -50 до +50; определяет LLM |
 | `created_at` | Обязательное время создания записи (`timestamptz NOT NULL DEFAULT now()`), заполняется PostgreSQL автоматически |
 
