@@ -1,0 +1,95 @@
+{
+  "description": "Анализ облигационного портфеля: доходность к погашению или оферте, купонная доходность, кредитные и финансовые риски, концентрации, ликвидность, рыночный стресс, свободные средства и парковка капитала",
+  "mcp_objects": [
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://users/{user_id}/accounts",
+      "description": "Список сохранённых счетов пользователя (account_id, account_name) для выбора счёта"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://accounts/{account_id}/portfolio",
+      "description": "Основной сохранённый отчёт: состав, доходность, риски, free_cash_rub, parking_value_rub"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://schemas/portfolio",
+      "description": "Значения и структура полей отчёта"
+    },
+    {
+      "type": "tool",
+      "identifier": "get_bond_analysis",
+      "description": "Подробный анализ выпуска при необходимости"
+    },
+    {
+      "type": "tool",
+      "identifier": "get_bond_ratings",
+      "description": "Кредитный риск, текущий рейтинг и история"
+    },
+    {
+      "type": "tool",
+      "identifier": "get_yield_quality",
+      "description": "Качество текущей доходности к погашению или оферте"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://bonds/{isin}/liquidity",
+      "description": "Ликвидность выпуска и её факторы"
+    },
+    {
+      "type": "tool",
+      "identifier": "get_issuer_market_stress",
+      "description": "Состояние и процесс рыночного стресса эмитентов; аргумент isins"
+    },
+    {
+      "type": "tool",
+      "identifier": "get_financial_risk",
+      "description": "Финансовый риск эмитента; аргумент inn"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://bonds/{isin}/issuer-inn",
+      "description": "Определить ИНН эмитента для дальнейших запросов"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://issuers/{inn}/screening",
+      "description": "Сохранённый скрининг РСБУ/МСФО и динамика оценок"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://bonds/{isin}/market-stress/{snapshot_date}",
+      "description": "Состояние и процесс стресса самого выпуска на выбранную дату"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://bonds/{isin}/offers/{mode}{?from_date}",
+      "description": "Структурные события: оферты и их условия"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://bonds/{isin}/amortizations",
+      "description": "График частичных погашений номинала"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://bonds/{isin}/coupons",
+      "description": "График купонных выплат и параметры купонов"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://accounts/{account_id}/allocation/{isin}",
+      "description": "Лимиты и концентрации по выпуску, эмитенту, группе; не источник свободных денег"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://bonds/{isin}/issuer",
+      "description": "Карточка эмитента выпуска"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://issuers/{inn}/activity",
+      "description": "Отраслевая классификация эмитента"
+    }
+  ]
+}
