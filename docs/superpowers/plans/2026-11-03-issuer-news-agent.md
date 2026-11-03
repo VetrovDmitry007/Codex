@@ -1,4 +1,4 @@
-# AI-агент анализа новостей эмитентов — план реализации
+# AI-агент анализа новостей эмитентов — Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkboxes (`- [ ]`) for tracking.
 
@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python, LangGraph, LangChain Core, asyncpg, PostgreSQL, pytest/pytest-asyncio (или эквивалентный уже установленный async pytest-режим), существующие адаптеры LLM BondNavigator.
 
-**Spec:** [`specs/analysis_news/issuer-news-agent-2026-11-02.md`](../../specs/analysis_news/issuer-news-agent-2026-11-02.md) — [GitHub](https://github.com/VetrovDmitry007/Codex/blob/main/specs/analysis_news/issuer-news-agent-2026-11-02.md), ветка `main`, редакция после коммита `6f0b0bfb`.
+**Spec:** [`specs/analysis_news/issuer-news-agent-2026-11-02.md`](../../../specs/analysis_news/issuer-news-agent-2026-11-02.md) — [GitHub](https://github.com/VetrovDmitry007/Codex/blob/main/specs/analysis_news/issuer-news-agent-2026-11-02.md), ветка `main`, редакция после коммита `6f0b0bfb`.
 
 **Источники проверки:** утверждённая архитектурная спецификация; предоставленный пользователем снимок структуры `PROJECT_STRUCTURE.md` (в нём подтверждены общий `db/postgres.py` и `db/extensions/`, однако актуальные реализации `issuer_news`, LLM-адаптеров и миграций в этом ходе не открывались). Указанные ниже пути новых файлов — целевая структура из спецификации; фактические интерфейсы существующих файлов обязательно прочитать до изменений.
 
@@ -146,7 +146,7 @@
 **Interfaces:** `class NewsNotFoundError(LookupError)` с `news_id`; `async def run_news_analysis(...) -> NewsAnalysisResult` для **найденной** новости; существующая `def run_graph() -> None` без CLI-аргументов. Точную сигнатуру параметров `run_news_analysis` зафиксировать по уже имеющимся адаптерам при этапе 0; не вводить второй путь запуска.
 
 - [ ] Red-тесты: отсутствие `news_id` после успешного чтения → `NewsNotFoundError`, без создания графа, lock и LLM; ошибка SQL чтения → **не** `NewsNotFoundError`; `screening` → `skipped` без LLM; занятая блокировка → `error`; повтор при `force_reanalysis=False` → `skipped`; принудительный повтор → проверенный `success`.
-- [ ] Red-тесты: наружу выходят **только** допустимые поля `NewsAnalysisResult`; не выходят `messages, sources, raw_result, parsed_result, validation_errors, iterations, correction_used`; отсутствующий/невалидный `state["result"]` → `error`; ``success` до commit` запрещён; SQL conflict меняет итог на `skipped`; сбой commit → `error`.
+- [ ] Red-тесты: наружу выходят **только** допустимые поля `NewsAnalysisResult`; не выходят `messages, sources, raw_result, parsed_result, validation_errors, iterations, correction_used`; отсутствующий/невалидный `state["result"]` → `error`; `success` до `commit` запрещён; SQL conflict меняет итог на `skipped`; сбой commit → `error`.
 - [ ] Проверить `GraphRecursionError`, отказ при потере lock, ошибки LLM, чистоту `reason` (без секретов/traceback), `logger.info` для нормального запуска и `logger.error` + ненулевой exit-код для `NewsNotFoundError`.
 - [ ] Red → реализовать единую обёртку и ручную точку входа; `run_graph()` вызывает обёртку через `asyncio.run`, для `NewsNotFoundError` не придумывает `issuer_id` → Green.
 - [ ] Коммит `feat(analysis-news): expose guarded public news runner`.
