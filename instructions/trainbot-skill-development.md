@@ -10,6 +10,8 @@
 
 **Рабочий каталог Skill:** `.agents/skills/trainbot/`.
 
+**Обязательные материалы Skill:** [`references/verified-site-profile.md`](../.agents/skills/trainbot/references/verified-site-profile.md) (проверенные факты официального сайта, источник и свежесть) и [`references/yandex-direct-methodology.md`](../.agents/skills/trainbot/references/yandex-direct-methodology.md) (адаптация методик SEO/Яндекс Директа к цели посещаемости). Перед подготовкой каждого ТЗ считывать оба файла и проверять изменяемые условия по актуальным источникам.
+
 **Каталог спецификаций:** `specs/` (имя файла и его создание согласовывать по `instructions/interaction-rules.md`).
 
 ## Обязательные инструменты и навыки
