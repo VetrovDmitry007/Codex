@@ -1,0 +1,40 @@
+{
+  "description": "Анализ ожидаемых выплат, оферт и частичных погашений облигаций до конца текущего месяца",
+  "mcp_objects": [
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://users/{user_id}/accounts",
+      "description": "Список сохранённых счетов пользователя с account_id и account_name; для определения нужного счёта"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://accounts/{account_id}/cash-flow/{days}{?provider}",
+      "description": "Основной календарь выплат: для анализа до конца месяца days=31, provider=db по умолчанию"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://schemas/cash-flow",
+      "description": "Описание календаря, валют, сумм, статусов и условных событий"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://accounts/{account_id}/isins",
+      "description": "Список выпусков и количество облигаций на счёте для проверки отдельных событий"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://bonds/{isin}/coupons",
+      "description": "Сохранённый график купонных выплат выпуска"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://bonds/{isin}/amortizations",
+      "description": "Сохранённый график частичных погашений номинала"
+    },
+    {
+      "type": "resource",
+      "identifier": "bondnavigator://bonds/{isin}/offers/{mode}{?from_date}",
+      "description": "Даты и условия оферт; при режиме future или next требуется from_date"
+    }
+  ]
+}
