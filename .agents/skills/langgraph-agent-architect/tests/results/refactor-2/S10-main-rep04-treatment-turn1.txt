@@ -1,0 +1,3 @@
+В репозитории нашёл несколько спецификаций: [LangGraph](https://github.com/VetrovDmitry007/Codex/blob/main/specs/langgraph-agent-architect-2026-11-02.md), [MCP-клиент](https://github.com/VetrovDmitry007/Codex/blob/main/specs/mcp-client-architecture-2026-10-29.md) и [MCP-клиент для BondNavigator](https://github.com/VetrovDmitry007/Codex/blob/main/specs/mcp-client-bondnavigator-2026-10-30.md).
+
+Какую использовать? Если речь о BondNavigator, рекомендую последнюю. Пока не выбрана конкретная спецификация, не буду считать её согласованной. И учту ограничение этого контекста: здесь можно только читать и давать советы — без правок проекта.

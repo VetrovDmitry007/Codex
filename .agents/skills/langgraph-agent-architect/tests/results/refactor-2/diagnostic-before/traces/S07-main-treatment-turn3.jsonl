@@ -1,0 +1,4 @@
+{"type": "thread.started", "thread_id": "01a19fb6-02ca-7682-aeac-09d314bfebd2"}
+{"type": "turn.started"}
+{"type": "item.completed", "item": {"id": "item_0", "type": "agent_message", "text": "`Command(goto=\"review\")` не отменяет статический переход. Поэтому `analyze` может направить выполнение и в `archive`, и в `review`; эти ветки могут пойти параллельно.\n\nЕсли должен выбираться только один маршрут, уберите статический переход и оставьте маршрутизацию через `Command` — либо задайте оба варианта через условные переходы. Это моя рекомендация для взаимоисключающих веток. Если обе ветки должны выполняться, проверьте, как они объединяют изменения общего состояния."}}
+{"type": "turn.completed", "usage": {"input_tokens": 138806, "cached_input_tokens": 111104, "cache_write_input_tokens": 0, "output_tokens": 1981, "reasoning_output_tokens": 1183}}

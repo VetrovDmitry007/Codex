@@ -1,0 +1,1 @@
+2026-11-03T04:44:53.328980Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested/codex?scope=GLOBAL failed with status 503 Service Unavailable: upstream connect error or disconnect/reset before headers. reset reason: connection termination

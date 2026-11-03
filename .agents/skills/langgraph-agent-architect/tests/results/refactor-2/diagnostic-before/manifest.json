@@ -1,0 +1,40 @@
+{
+  "created_at_utc": "2026-11-03T04:41:57.708343+00:00",
+  "base_commit": "ea747882e3e7ec2f70556523d214c4f412380cda",
+  "baseline_skill_blob_sha": "a283434e0c1fb85483bcb4f73234bf78579b6056",
+  "active_skill_sha256": "6a61528ca30a9547bc38b0bd79ee14565f45f3b2cbcec236a0ea3942e1b4624d",
+  "codex_cli": "codex-cli 0.163.0-alpha.11.1",
+  "model_requested": "gpt-6-luna",
+  "reasoning_effort": "high",
+  "sandbox": "read-only",
+  "ignore_user_config": true,
+  "max_parallel_sessions": 4,
+  "runs": [
+    {
+      "id": "S07-main-treatment",
+      "scenario": "S7",
+      "variant": "treatment",
+      "model": "gpt-6-luna",
+      "reasoning": "high",
+      "session_id": "01a19fb6-02ca-7682-aeac-09d314bfebd2",
+      "turns": 3,
+      "return_code": 0,
+      "response": ".agents/skills/langgraph-agent-architect/tests/results/refactor-2/diagnostic-before/S07-main-treatment.md",
+      "trace_dir": ".agents/skills/langgraph-agent-architect/tests/results/refactor-2/diagnostic-before/traces",
+      "status": "captured"
+    },
+    {
+      "id": "S10-main-treatment",
+      "scenario": "S10",
+      "variant": "treatment",
+      "model": "gpt-6-luna",
+      "reasoning": "high",
+      "session_id": "01a19fb6-02ca-7fa3-af74-0f46513d6829",
+      "turns": 2,
+      "return_code": 0,
+      "response": ".agents/skills/langgraph-agent-architect/tests/results/refactor-2/diagnostic-before/S10-main-treatment.md",
+      "trace_dir": ".agents/skills/langgraph-agent-architect/tests/results/refactor-2/diagnostic-before/traces",
+      "status": "captured"
+    }
+  ]
+}

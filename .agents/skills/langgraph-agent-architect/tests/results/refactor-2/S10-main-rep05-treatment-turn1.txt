@@ -1,0 +1,3 @@
+В GitHub нашёл три спецификации. Для проекта BondNavigator рекомендую использовать план [mcp-client-bondnavigator-2026-10-30.md](https://github.com/VetrovDmitry007/Codex/blob/main/specs/mcp-client-bondnavigator-2026-10-30.md): он описывает этапы работы и ссылается на архитектурную основу — [mcp-client-architecture-2026-10-29.md](https://github.com/VetrovDmitry007/Codex/blob/main/specs/mcp-client-architecture-2026-10-29.md). Файл про LangGraph — спецификация навыка, а не архитектура самого проекта.
+
+Подтвердите, что продолжать по плану BondNavigator, опираясь на архитектурную спецификацию. Пока ничего не изменял.

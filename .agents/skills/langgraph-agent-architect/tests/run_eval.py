@@ -10,7 +10,7 @@ import os
 import shutil
 import subprocess
 import tempfile
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -55,7 +55,7 @@ def cases() -> list[Case]:
         Case("S04-main", "S4", "Нужна система, где координатор распределяет специализированные задачи между агентами, проверяет результаты и не допускает бесконечной делегации.", (select_design, approve)),
         Case("S05-main", "S5", "Перед отправкой результата во внешний сервис требуется подтверждение человека; возможна отмена.", (select_design, approve)),
         Case("S06-main", "S6", "После сетевого сбоя агент должен возобновить работу с прежним состоянием; последний узел успел отправить платёжное поручение до падения.", (select_design, approve)),
-        Case("S07-main", "S7", "У меня есть существующий LangGraph-граф, хочу обсудить его маршрутизацию.", (select_audit + " У узла `analyze` есть статический переход к `archive` и он может вернуть `Command(goto=\"review\")`. Почему после analyze идут обе ветки?",)),
+        Case("S07-main", "S7", "У меня есть существующий LangGraph-граф, хочу обсудить его маршрутизацию.", (select_audit, "У узла `analyze` есть статический переход к `archive` и он может вернуть `Command(goto=\"review\")`. Почему после analyze идут обе ветки?")),
         Case("S08-main", "S8", "В существующую архитектуру добавь ручное подтверждение, исходная спецификация требований уже утверждена.", (select_modify + " Утверждённые требования находятся в `specs/approved-requirements.md`, текущая архитектура — в `specs/current-agent-architecture.md`. Прочитай оба файла.", "Подтверждаю изменение архитектуры с ручным подтверждением. Требования не меняй; не записывай ничего в файлы или GitHub, выведи результат в чате."), "hitl_fixture"),
         Case("S09-main", "S9", "Предыдущая спецификация: `specs/missing-brief.md`; проектируй по ней.", (select_design,)),
         Case("S10-main", "S10", "У нас раньше была спецификация, используй её для проекта.", (select_design,)),
@@ -224,12 +224,31 @@ def main() -> int:
     parser.add_argument("--run-label", default="baseline", help="Подкаталог артефактов внутри tests/results")
     parser.add_argument("--only", nargs="*", help="Ограничить запуск указанными именами тестов, например S01-main")
     parser.add_argument("--variant", choices=("both", "control", "treatment"), default="both")
+    parser.add_argument("--repeat-case", action="append", default=[], metavar="CASE=COUNT", help="Повторить независимые сессии заданного сценария, например S07-main=5")
     args = parser.parse_args()
     RESULTS = RESULTS_ROOT / args.run_label
     RESULTS.mkdir(parents=True, exist_ok=True)
     TEMP_ROOT.mkdir(parents=True, exist_ok=True)
     variants = ("control", "treatment") if args.variant == "both" else (args.variant,)
-    selected_cases = [case for case in cases() if args.only is None or case.name in args.only]
+    repeat_counts: dict[str, int] = {}
+    for value in args.repeat_case:
+        try:
+            case_name, raw_count = value.rsplit("=", 1)
+            repeat_counts[case_name] = int(raw_count)
+        except (ValueError, TypeError) as error:
+            parser.error(f"Некорректный --repeat-case: {value!r}; ожидается CASE=COUNT")
+        if repeat_counts[case_name] < 1:
+            parser.error(f"Число повторов должно быть положительным: {value!r}")
+    available_cases = {case.name: case for case in cases()}
+    unknown_cases = set(repeat_counts) - set(available_cases)
+    if unknown_cases:
+        parser.error(f"Неизвестные сценарии для повтора: {', '.join(sorted(unknown_cases))}")
+    selected_cases: list[Case] = []
+    for case in available_cases.values():
+        if args.only is not None and case.name not in args.only:
+            continue
+        count = repeat_counts.get(case.name, 1)
+        selected_cases.extend(case if count == 1 else replace(case, name=f"{case.name}-rep{index:02d}") for index in range(1, count + 1))
     work = [(case, variant) for case in selected_cases for variant in variants]
     results: list[dict[str, Any]] = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
