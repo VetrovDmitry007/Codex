@@ -88,18 +88,18 @@ def prepare_context(case: Case, variant: str) -> Path:
     shutil.copy2(BASE_RULES, workspace / "instructions/interaction-rules.md")
     if variant == "control":
         (workspace / "AGENTS.md").write_text(
-            "Before responding, read and follow `instructions/interaction-rules.md`. "
-            "This is a read-only conversation simulation: do not edit files or remote services, "
+            "Before inspecting project files, read and follow `instructions/interaction-rules.md`. "
+            "Read-only test: do not modify local files or remote services; reading files and GitHub is permitted, "
             "send messages, make payments, deploy, or write implementation code. Return advice in chat.\n",
             encoding="utf-8",
         )
     else:
         (workspace / "AGENTS.md").write_text(
-            "Before responding, read and follow `instructions/interaction-rules.md`. "
-            "This is a read-only conversation simulation: do not edit files or remote services, "
+            "Before inspecting project files, read and follow `instructions/interaction-rules.md`. "
+            "Read-only test: do not modify local files or remote services; reading files and GitHub is permitted, "
             "send messages, make payments, deploy, or write implementation code. Return advice in chat. "
             "For every LangGraph architecture request, also read and follow "
-            "`.agents/skills/langgraph-agent-architect/SKILL.md` before responding.\n",
+            "`.agents/skills/langgraph-agent-architect/SKILL.md` before inspecting project files.\n",
             encoding="utf-8",
         )
         skill_path = workspace / ".agents/skills/langgraph-agent-architect/SKILL.md"
