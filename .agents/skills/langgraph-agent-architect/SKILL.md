@@ -124,4 +124,4 @@ description: Use when the user asks to design, review, audit, or change the arch
 
 ## Проверка этого Skill
 
-При разработке и изменениях **REQUIRED SUB-SKILL: `superpowers:writing-skills`**. Сценарии и критерии для повторяемых проверок: [tests/scenarios.md](tests/scenarios.md). Проверяй простые графы, ReAct, parallel, multi-agent, HITL, persistence и три режима, включая негативные кейсы. Не называй модельные испытания выполненными, если проведена только статическая проверка структуры/текста.
+При изменениях используй методику `superpowers:writing-skills` и проверяй реальное поведение модели на независимых сценариях. Не заявляй об успешном тестировании, если выполнена только статическая проверка текста.
