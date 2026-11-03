@@ -1,0 +1,4 @@
+{"type": "thread.started", "thread_id": "01a19fcd-2765-7833-afa7-6dd1151fc011"}
+{"type": "turn.started"}
+{"type": "item.completed", "item": {"id": "item_0", "type": "agent_message", "text": "Пришлите полный путь или URL прежней спецификации требований. Для проектирования с нуля она задаст исходные требования; архитектурная спецификация сама по себе её не заменяет."}}
+{"type": "turn.completed", "usage": {"input_tokens": 516662, "cached_input_tokens": 428288, "cache_write_input_tokens": 0, "output_tokens": 3459, "reasoning_output_tokens": 2334}}

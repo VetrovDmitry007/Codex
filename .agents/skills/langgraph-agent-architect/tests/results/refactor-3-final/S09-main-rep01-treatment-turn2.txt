@@ -1,0 +1,8 @@
+Файл `specs/missing-brief.md` отсутствует локально и в `main` репозитория GitHub. По именам файлов нашлись возможные документы, но я не открывал их содержимое:
+
+- [`specs/langgraph-agent-architect-2026-11-02.md`](https://github.com/VetrovDmitry007/Codex/blob/main/specs/langgraph-agent-architect-2026-11-02.md)
+- [`specs/mcp-client-architecture-2026-10-29.md`](https://github.com/VetrovDmitry007/Codex/blob/main/specs/mcp-client-architecture-2026-10-29.md)
+- [`specs/mcp-client-bondnavigator-2026-10-30.md`](https://github.com/VetrovDmitry007/Codex/blob/main/specs/mcp-client-bondnavigator-2026-10-30.md)
+- [`specs/analysis_news/issuer-news-agent-2026-11-02.md`](https://github.com/VetrovDmitry007/Codex/blob/main/specs/analysis_news/issuer-news-agent-2026-11-02.md)
+
+Какой документ содержит исходные требования? Если это другой файл, пришлите его точный путь или текст.

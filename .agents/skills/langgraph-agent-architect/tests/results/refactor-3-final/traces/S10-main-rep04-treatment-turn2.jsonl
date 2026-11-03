@@ -1,0 +1,4 @@
+{"type": "thread.started", "thread_id": "01a19fd9-f309-7601-ab53-1c76d5ae723f"}
+{"type": "turn.started"}
+{"type": "item.completed", "item": {"id": "item_0", "type": "agent_message", "text": "Пришлите полный путь или URL к прежней спецификации требований. Проверю именно её, прежде чем изучать материалы проекта."}}
+{"type": "turn.completed", "usage": {"input_tokens": 69362, "cached_input_tokens": 53248, "cache_write_input_tokens": 0, "output_tokens": 737, "reasoning_output_tokens": 494}}

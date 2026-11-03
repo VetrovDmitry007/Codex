@@ -1,0 +1,3 @@
+`specs/missing-brief.md` отсутствует и локально, и в GitHub на ветке `main`. Среди файлов в `specs/` есть возможный кандидат — [`specs/langgraph-agent-architect-2026-11-02.md`](https://github.com/VetrovDmitry007/Codex/blob/main/specs/langgraph-agent-architect-2026-11-02.md), но по одному имени нельзя понять, содержит ли он нужные требования.
+
+Подтвердите, что использовать этот файл, или пришлите верный путь к brief.

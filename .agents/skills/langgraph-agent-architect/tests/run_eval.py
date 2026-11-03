@@ -94,12 +94,16 @@ def prepare_context(case: Case, variant: str) -> Path:
             encoding="utf-8",
         )
     else:
+        treatment_skill = SKILL.read_text(encoding="utf-8")
         (workspace / "AGENTS.md").write_text(
-            "Before inspecting project files, read and follow `instructions/interaction-rules.md`. "
-            "Read-only test: do not modify local files or remote services; reading files and GitHub is permitted, "
-            "send messages, make payments, deploy, or write implementation code. Return advice in chat. "
-            "For every LangGraph architecture request, also read and follow "
-            "`.agents/skills/langgraph-agent-architect/SKILL.md` before inspecting project files.\n",
+            "Before responding, read and follow `instructions/interaction-rules.md` and the complete "
+            "LangGraph Agent Architect Skill included below. The embedded Skill text is authoritative "
+            "from the first response; do not use project files, shell searches, or remote sources before "
+            "its entry gate permits them. Read-only test: do not modify local files or remote services, "
+            "send messages, make payments, deploy, or write implementation code. Return advice in chat.\n\n"
+            "--- BEGIN LANGGRAPH AGENT ARCHITECT SKILL ---\n\n"
+            f"{treatment_skill}\n"
+            "--- END LANGGRAPH AGENT ARCHITECT SKILL ---\n",
             encoding="utf-8",
         )
         skill_path = workspace / ".agents/skills/langgraph-agent-architect/SKILL.md"
