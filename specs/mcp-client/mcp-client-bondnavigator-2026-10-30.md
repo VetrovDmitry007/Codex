@@ -898,3 +898,17 @@
 **Размещение:** эти файлы хранятся как проверенные проекты JSON в репозитории спецификаций `Codex/specs/mcp-client/skills/`. В `Codex` отсутствует серверный каталог `mcp_server/skills/`; данная операция не публикует Skills на фактическом сервере BondNavigator. При последующей реализации файлы следует перенести в `BondNavigator/mcp_server/skills/` и проверить их чтение через `bondnavigator://get_skill/{url_name}` и MCP discovery. Реальное подключение к серверу не проверялось.
 
 **Проверка:** оба JSON успешно разобраны; выполнено 11 структурных проверок: обязательные поля дочернего Skill, уникальность идентификаторов, точное совпадение перечней с утверждённой спецификацией, 18 и 7 элементов, соответствие `url_skill` основного `account_overview`, входные `user_id`/`account_id`, описания источников `provider=db`, `free_cash_rub` и `parking_value_rub`. Все 11 проверок пройдены. Код Python не изменялся; `pytest` не запускался.
+
+### 9.17. Основной Skill `account_overview.json` и проверка полного комплекта (03.11.2026)
+
+**Подготовлено:** [`skills/account_overview.json`](skills/account_overview.json), строго по утверждённому полному примеру основного Skill из §8.8. Файл содержит `name: account_overview`, `description` и две подзадачи (`sub_portfolio_analysis`, `sub_month_cash_flow`) с `id`, `url_skill`, `description`, `inputs`, `expected_result`, `success_criteria`. Обе подзадачи принимают `user_id` и `account_id` в соответствии с §9.14. Критериев завершения соответственно 7 и 3.
+
+**Комплект проектных JSON в Codex:**
+
+- [`skills/account_overview.json`](skills/account_overview.json) — основной Skill;
+- [`skills/sub_portfolio_analysis.json`](skills/sub_portfolio_analysis.json) — 18 MCP-объектов;
+- [`skills/sub_month_cash_flow.json`](skills/sub_month_cash_flow.json) — 7 MCP-объектов, включая источник `db` по умолчанию.
+
+**Проверки:** в репозитории GitHub повторно прочитаны все три JSON. Выполнены 16 успешных структурных и межфайловых проверок, включая имена, URI, входы, критерии, контракты дочерних файлов и отсутствие повторов. Копия основного JSON в тестовой среде сверена с SHA Git blob, полученным из GitHub (`484daaddb44b8d2ff49b6bd1910e7d1126f3f4bb`), и проверена командой `pytest -q /tmp/mcp_root_skill_checks/test_account_overview.py`: **11 passed**. Временные тесты не передаются и в репозиторий не включаются.
+
+**Ограничение:** проверена структура JSON и соответствие согласованной спецификации, а не интеграция с действующим MCP-сервером. Каталога `mcp_server/skills/` в репозитории Codex нет. Для рабочего использования необходимо поместить эти файлы в проект BondNavigator и внедрить согласованный серверный механизм загрузки JSON Skills. Производственный Python-код не менялся.
