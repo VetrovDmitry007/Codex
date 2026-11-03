@@ -754,32 +754,52 @@
 **Следующий шаг:** окончательный состав дополнительных MCP-объектов согласован позднее в §9.11. Python-код не менялся, `pytest` не запускался.
 
 
-### 9.11. Согласованный расширенный набор из 17 MCP-объектов для `sub_portfolio_analysis` (03.11.2026)
+### 9.11. Согласованный расширенный набор из 18 MCP-объектов для `sub_portfolio_analysis` (03.11.2026)
 
-**Статус: согласовано пользователем.** Дочерний Skill `mcp_server/skills/sub_portfolio_analysis.json` описывает следующие 17 предметных объектов. При оформлении JSON сохраняется утверждённая структура `description` и `mcp_objects[]` с `type`, `identifier`, `description`.
+**Статус: согласовано пользователем.** Дочерний Skill `mcp_server/skills/sub_portfolio_analysis.json` описывает следующие 18 предметных объектов с учётом каталога счетов из §9.12. При оформлении JSON сохраняется утверждённая структура `description` и `mcp_objects[]` с `type`, `identifier`, `description`.
 
 | № | Тип | Идентификатор | Назначение |
 | --- | --- | --- | --- |
-| 1 | `resource` | `bondnavigator://accounts/{account_id}/portfolio` | Основной сохранённый отчёт: состав, доходность, риски, `free_cash_rub`, `parking_value_rub` |
-| 2 | `resource` | `bondnavigator://schemas/portfolio` | Значения и структура полей отчёта |
-| 3 | `tool` | `get_bond_analysis` | Подробный анализ выпуска при необходимости |
-| 4 | `tool` | `get_bond_ratings` | Кредитный риск, текущий рейтинг и история |
-| 5 | `tool` | `get_yield_quality` | Качество текущей доходности к погашению или оферте |
-| 6 | `resource` | `bondnavigator://bonds/{isin}/liquidity` | Ликвидность выпуска и её факторы |
-| 7 | `tool` | `get_issuer_market_stress` | Состояние и процесс рыночного стресса эмитентов; аргумент `isins` |
-| 8 | `tool` | `get_financial_risk` | Финансовый риск эмитента; аргумент `inn` |
-| 9 | `resource` | `bondnavigator://bonds/{isin}/issuer-inn` | Определить ИНН эмитента для дальнейших запросов |
-| 10 | `resource` | `bondnavigator://issuers/{inn}/screening` | Сохранённый скрининг РСБУ/МСФО и динамика оценок |
-| 11 | `resource` | `bondnavigator://bonds/{isin}/market-stress/{snapshot_date}` | Состояние и процесс стресса самого выпуска на выбранную дату |
-| 12 | `resource` | `bondnavigator://bonds/{isin}/offers/{mode}{?from_date}` | Структурные события: оферты и их условия |
-| 13 | `resource` | `bondnavigator://bonds/{isin}/amortizations` | График частичных погашений номинала |
-| 14 | `resource` | `bondnavigator://bonds/{isin}/coupons` | График купонных выплат и параметры купонов |
-| 15 | `resource` | `bondnavigator://accounts/{account_id}/allocation/{isin}` | Лимиты и концентрации по выпуску, эмитенту, группе; не источник свободных денег |
-| 16 | `resource` | `bondnavigator://bonds/{isin}/issuer` | Карточка эмитента выпуска |
-| 17 | `resource` | `bondnavigator://issuers/{inn}/activity` | Отраслевая классификация эмитента |
+| 1 | `resource` | `bondnavigator://users/{user_id}/accounts` | Список сохранённых счетов пользователя (`account_id`, `account_name`) для выбора счёта |
+| 2 | `resource` | `bondnavigator://accounts/{account_id}/portfolio` | Основной сохранённый отчёт: состав, доходность, риски, `free_cash_rub`, `parking_value_rub` |
+| 3 | `resource` | `bondnavigator://schemas/portfolio` | Значения и структура полей отчёта |
+| 4 | `tool` | `get_bond_analysis` | Подробный анализ выпуска при необходимости |
+| 5 | `tool` | `get_bond_ratings` | Кредитный риск, текущий рейтинг и история |
+| 6 | `tool` | `get_yield_quality` | Качество текущей доходности к погашению или оферте |
+| 7 | `resource` | `bondnavigator://bonds/{isin}/liquidity` | Ликвидность выпуска и её факторы |
+| 8 | `tool` | `get_issuer_market_stress` | Состояние и процесс рыночного стресса эмитентов; аргумент `isins` |
+| 9 | `tool` | `get_financial_risk` | Финансовый риск эмитента; аргумент `inn` |
+| 10 | `resource` | `bondnavigator://bonds/{isin}/issuer-inn` | Определить ИНН эмитента для дальнейших запросов |
+| 11 | `resource` | `bondnavigator://issuers/{inn}/screening` | Сохранённый скрининг РСБУ/МСФО и динамика оценок |
+| 12 | `resource` | `bondnavigator://bonds/{isin}/market-stress/{snapshot_date}` | Состояние и процесс стресса самого выпуска на выбранную дату |
+| 13 | `resource` | `bondnavigator://bonds/{isin}/offers/{mode}{?from_date}` | Структурные события: оферты и их условия |
+| 14 | `resource` | `bondnavigator://bonds/{isin}/amortizations` | График частичных погашений номинала |
+| 15 | `resource` | `bondnavigator://bonds/{isin}/coupons` | График купонных выплат и параметры купонов |
+| 16 | `resource` | `bondnavigator://accounts/{account_id}/allocation/{isin}` | Лимиты и концентрации по выпуску, эмитенту, группе; не источник свободных денег |
+| 17 | `resource` | `bondnavigator://bonds/{isin}/issuer` | Карточка эмитента выпуска |
+| 18 | `resource` | `bondnavigator://issuers/{inn}/activity` | Отраслевая классификация эмитента |
 
 **Правила использования:** основной снимок — первый источник; анализировать доходность портфеля к погашению или применимой оферте и купонную доходность отдельно. `free_cash_rub` и `parking_value_rub` читаются из того же снимка, не требуют нового MCP-объекта и показываются раздельно. Детальные MCP-запросы делать выборочно, при неблагоприятных показателях или необходимости обоснованного вывода. `get_financial_risk` использует ИНН, а `get_issuer_market_stress` — список ISIN. Вызовы `allocation` не заменяют анализ свободных денежных средств. Скоринг `issuers/{inn}/screening` относится к скринингу отчётности, не к будущему новостному скорингу.
 
 **Справочные схемы:** дополнительные `bondnavigator://schemas/*` для кредитного и финансового риска, рыночного стресса, ликвидности, оферт, амортизаций, купонов, скрининга и т. д. можно читать по необходимости; они не входят в согласованные 17 предметных объектов. Документ `mcp-reference(3).md` фиксирует discovery интерфейсов на 27.10.2026; перед реализацией убедиться в сохранности идентификаторов в работающем сервере, не вводя тяжёлую валидацию.
 
 **Граница:** состав предметных MCP-объектов утверждён; это не разрешение менять исходный Python-код. `pytest` не запускался.
+
+
+### 9.12. Список счетов в обоих дочерних Skills (03.11.2026)
+
+**Статус: согласовано пользователем.** В массив `mcp_objects` каждого из `sub_portfolio_analysis.json` и `sub_month_cash_flow.json` добавить один и тот же ресурс:
+
+```json
+{
+  "type": "resource",
+  "identifier": "bondnavigator://users/{user_id}/accounts",
+  "description": "Сохранённые счета пользователя: account_id и account_name для определения нужного счёта"
+}
+```
+
+Ресурс возвращает массив счетов с полями `account_id`, `account_name` либо пустой массив; требуется известный `user_id`. Если точный `account_id` уже имеется, запрашивать каталог повторно необязательно. Если счёт задан названием или не выбран, использовать каталог для сопоставления и передачи его `account_id` в предметные запросы. При неоднозначности выбора счёта не подставлять произвольный ID. Ресурс не определяет `user_id` автоматически.
+
+С учётом этого дополнения в `sub_portfolio_analysis` теперь **18 MCP-объектов** (§9.11), а в предложенном перечне `sub_month_cash_flow` — **7 MCP-объектов**, включая новый каталог. Остальные шесть объектов второй подзадачи остаются ранее предложенными и подлежат окончательному согласованию.
+
+**Открытый вопрос:** источник `user_id` в клиентском контексте. Изменён только документ спецификации; Python-код не менялся, `pytest` не запускался.
