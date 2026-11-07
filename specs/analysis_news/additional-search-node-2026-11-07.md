@@ -62,7 +62,7 @@ class SourceData(TypedDict):
 
     title: str | None  # Заголовок публикации, если доступен.
     text: str  # Полный текст полученной публикации.
-    published_date: date | None  # Дата публикации; None, если неизвестна.
+    published_date: date | Literal["unknown"]  # Дата публикации либо «unknown», если неизвестна.
     summary: str | None  # Предварительная либо проверенная суммаризация.
     summary_status: Literal["pending", "validated", "rejected"]  # Статус проверки суммаризации.
 
@@ -82,7 +82,7 @@ class AgentState(TypedDict):
 2. При `search_task=None` поисковый сервис **не вызывается**.
 3. Функция ноды `additional_search()` в `nodes.py` **напрямую вызывает** `data_sources.additional_news.service.search_additional_news(fact=..., query=...)`. Готовый запрос не переформулируется, отдельная обёртка или дополнительная LLM не используются.
 4. Сервис возвращает `AdditionalSearchResult` с `sources: list[AdditionalSource]` и `errors: list[str]` непосредственно вызывающей ноде. Нода не выполняет HTTP/MCP-операции самостоятельно.
-5. Только успешно полученные **полные тексты** дополнительных публикаций добавляются в существующий `AgentState.sources`. Для каждой новой записи: `title`, `text`, `published_date` из `AdditionalSource`; `summary=None`; `summary_status="pending"`.
+5. Только успешно полученные **полные тексты** дополнительных публикаций добавляются в существующий `AgentState.sources`. Для каждой новой записи: `title`, `text`, `published_date` из `AdditionalSource` (дата или строка `"unknown"`); `summary=None`; `summary_status="pending"`.
 6. Не заменять полный текст поисковым сниппетом. Не вводить отдельный словарь дополнительных публикаций в состояние.
 7. После обработки результата `search_task` сбрасывается в `None`, **включая контролируемый отказ**, чтобы прежнее задание не выполнялось повторно.
 8. Конкретная реакция графа на `errors`, отсутствие новых публикаций, повторы и исчерпание лимитов ещё не согласована.
