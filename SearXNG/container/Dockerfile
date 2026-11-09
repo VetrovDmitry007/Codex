@@ -1,4 +1,4 @@
-FROM docker.io/searxng/base:searxng-builder AS builder
+FROM ghcr.io/searxng/base:searxng-builder@sha256:f11fa008add56a99f8eaaf91a85e3f3c4f04021590b2cb45c37ffaa7b5c1cb4b AS builder
 
 COPY ./requirements.txt ./requirements-server.txt ./
 
@@ -24,7 +24,7 @@ RUN set -eux -o pipefail; \
     -exec gzip --test {}.gz + \
     -exec brotli --test {}.br +
 
-FROM docker.io/searxng/base:searxng AS dist
+FROM ghcr.io/searxng/base:searxng@sha256:d8b9473da0475ebbb1ee93e282f304fbd11a6f8bad578f1e35dbaa094b6a37cf AS dist
 
 COPY --chown=977:977 --from=builder /usr/local/searxng/.venv/ ./.venv/
 COPY --chown=977:977 --from=builder /usr/local/searxng/searx/ ./searx/

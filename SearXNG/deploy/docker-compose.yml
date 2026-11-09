@@ -1,0 +1,29 @@
+name: bondnav-searxng
+
+services:
+  searxng:
+    image: bondnav-searxng:${SEARXNG_TAG:?Set SEARXNG_TAG in .env}
+    build:
+      context: ./source/SearXNG
+      dockerfile: container/Dockerfile
+      args:
+        CREATED: ${SEARXNG_CREATED:?Set SEARXNG_CREATED in .env}
+        VERSION: ${SEARXNG_TAG:?Set SEARXNG_TAG in .env}
+        VCS_URL: https://github.com/VetrovDmitry007/Codex/tree/${SEARXNG_REVISION:?Set SEARXNG_REVISION in .env}/SearXNG
+        VCS_REVISION: ${SEARXNG_REVISION:?Set SEARXNG_REVISION in .env}
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8088:8080"
+    entrypoint: ["/bin/sh", "/etc/searxng/private-entrypoint.sh"]
+    environment:
+      SEARXNG_LIMITER: "false"
+      SEARXNG_PUBLIC_INSTANCE: "false"
+    secrets:
+      - searxng_secret
+    volumes:
+      - ./config:/etc/searxng
+      - ./data:/var/cache/searxng
+
+secrets:
+  searxng_secret:
+    file: ./secrets/searxng_secret
