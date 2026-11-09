@@ -130,6 +130,9 @@ flowchart TD
     N -->|Новые URL| S
     N -->|Нет новых URL / отказ / блокировка| E
     E -->|complete| R[validate_result]
+    R -->|Проверено: success| W[save_result]
+    W --> F([END])
+    E -->|impact_unknown| F
     E -->|revise_analysis| AR[analyze_result]
     AR --> E
 ```
