@@ -26,6 +26,7 @@ class PrivateDeploymentConfigTest(unittest.TestCase):
         self.assertEqual(service["build"]["dockerfile"], "container/Dockerfile")
         dockerfile = (ROOT / "container" / "Dockerfile").read_text(encoding="utf-8")
         self.assertEqual(dockerfile.count("@sha256:"), 2)
+        self.assertIn("docker.io/searxng/base:", dockerfile)
         self.assertEqual(service["ports"], ["127.0.0.1:8088:8080"])
         self.assertEqual(service["restart"], "unless-stopped")
         self.assertEqual(service["environment"]["SEARXNG_LIMITER"], "false")
