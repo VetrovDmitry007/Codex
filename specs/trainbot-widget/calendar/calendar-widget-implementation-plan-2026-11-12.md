@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.11 (текущий Dockerfile), aiogram>=3,<4, существующие aiohttp/MemoryStorage, стандартные pathlib/json/zlib/datetime/zoneinfo/unittest. Новые зависимости не требуются.
 
-**Spec:** [утверждённые требования](https://github.com/VetrovDmitry007/Codex/blob/main/specs/trainbot-widget/calendar-widget-2026-11-12.md), blob `994595e44247cc5c185e90aeeee32f570e394777`; [утверждённая архитектура](https://github.com/VetrovDmitry007/Codex/blob/main/specs/trainbot-widget/calendar-widget-architecture-2026-11-12.md), blob `6fdefec74e3e5c9303a93daa317fc29e1ba85226`. Исполнитель читает оба документа, включая последующие согласованные разделы 3.1–3.12: оставшиеся заголовки «не утверждено» и старые checkbox не отменяют итогового утверждения.
+**Spec:** [утверждённые требования](https://github.com/VetrovDmitry007/Codex/blob/main/specs/trainbot-widget/calendar/calendar-widget-2026-11-12.md), blob `994595e44247cc5c185e90aeeee32f570e394777`; [утверждённая архитектура](https://github.com/VetrovDmitry007/Codex/blob/main/specs/trainbot-widget/calendar/calendar-widget-architecture-2026-11-12.md), blob `6fdefec74e3e5c9303a93daa317fc29e1ba85226`. Исполнитель читает оба документа, включая последующие согласованные разделы 3.1–3.12: оставшиеся заголовки «не утверждено» и старые checkbox не отменяют итогового утверждения.
 
 ## Global Constraints
 
@@ -36,7 +36,7 @@
 
 Исследование выполнено 2026-11-12. Runtime-код найден **локально в Z:/Python/Net/RZD_COM**, ветка `dev`, HEAD `6456ad3cf8a09dec0e2418698fdeb6f041d3fa9d`, а не предположен в репозитории Codex. Чужие untracked-файлы присутствуют; их не включать в будущие коммиты. Перед реализацией повторно проверить HEAD/состояние затрагиваемых файлов.
 
-Документы и Widgets Skill прочитаны через GitHub в `VetrovDmitry007/Codex/main`. План размещается в `specs/trainbot-widget/` согласно §5 основной TrainBot-инструкции и утверждённой архитектуре; writing-plans разрешает переопределять default `docs/superpowers/plans/` пользовательским соглашением. Локальный issue tracker — `.scratch/calendar-widget/`, согласно `docs/agents/issue-tracker.md`; его spec — рабочая сводка утверждённых источников, не новая функциональная спецификация.
+Документы и Widgets Skill прочитаны через GitHub в `VetrovDmitry007/Codex/main`. План размещается в `specs/trainbot-widget/calendar/` согласно §5 основной TrainBot-инструкции и утверждённой архитектуре; writing-plans разрешает переопределять default `docs/superpowers/plans/` пользовательским соглашением. Локальный issue tracker — `.scratch/calendar-widget/`, согласно `docs/agents/issue-tracker.md`; его spec — рабочая сводка утверждённых источников, не новая функциональная спецификация.
 
 По позднему поручению использованы также to-spec/to-tickets. Пользователь согласовал границу тестирования и четыре тикета: 01 — общая дата/ручной ввод; 02 — подтверждение календарём по всем слоям; 03 — отмена/fallback/сбои; 04 — регрессии/клиенты. Зависимости: 01 → 02 → 03 → 04. Это согласование документации не разрешает реализацию.
 

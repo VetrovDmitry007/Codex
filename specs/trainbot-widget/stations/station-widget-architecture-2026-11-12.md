@@ -10,7 +10,7 @@
 - По приложенному `PROJECT_STRUCTURE.md`: `handlers/subscrib.py` содержит `StSubscr`, `select_sity_depart()`, `select_DepName()`, `select_sity_dest()`, `select_DestName()`, `prm_sub_otslej()`; `core/util_bot.py` содержит `get_expressCode_async()`.
 - В ранее утверждённой архитектуре календаря упоминаются FSM-поля `DepName`, `DepCode`, `DestName`, `DestCode` и `TrainNumber`, `TimeDepart`; фактический текущий код `subscrib.py` в данной задаче отдельно не загружен, поэтому конкретные контракты и сигнатуры нужно сверить перед планом реализации.
 - В приложенном `bot.py` присутствуют `Dispatcher(storage=MemoryStorage())` и long polling; реальная версия aiogram не установлена по этому файлу.
-- `specs/trainbot-widget/calendar-widget-architecture-2026-11-12.md` утверждает архитектуру адаптера Telegram Widget, но его код ещё не подтверждён реализованным.
+- `specs/trainbot-widget/calendar/calendar-widget-architecture-2026-11-12.md` утверждает архитектуру адаптера Telegram Widget, но его код ещё не подтверждён реализованным.
 - Официальный Bot API 10.4 (2026-11-09): `sendWidget`, `widget_query`, `answerWidgetQuery`, `editMessageWidgetData`. В `sendWidget` параметр `width` задаёт логические пиксели и ограничивается клиентом снизу 200 и сверху шириной сообщения.
 
 ## Предложенный поток событий (не утверждено)
