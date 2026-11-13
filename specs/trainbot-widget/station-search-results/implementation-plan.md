@@ -62,7 +62,7 @@
 - [ ] Добавить `test_render_station_widget_keeps_fixed_height_for_short_page`: сравнить CSS/структуру для полной и последней неполной страницы.
 - [ ] Реализовать генератор с автономными inline CSS/JS по утверждённому макету; не использовать сетевые запросы, внешние ресурсы или ввод в поле Widget.
 - [ ] Встроить в шаблон передачу исходной строки и алгоритм сокращения/дедупликации по правилам выше; безопасно сериализовать значения.
-- [ ] Запустить .\.venv\Scripts\python.exe -m pytest test\\station_widget\\test_render.py -q`.
+- [ ] Запустить `.\.venv\Scripts\python.exe -m pytest test\station_widget\test_render.py -q`.
 - [ ] Критерий: тесты проходят; HTML не содержит NUL и укладывается в лимиты 32768 байт UTF-8 и 4096 байт после zlib(9); ни один запрос выбора не длиннее 64 байт UTF-8.
 
 ### Задача 2. Подключение поиска отправления и назначения
@@ -73,7 +73,7 @@
 - [ ] Добавить `test_station_search_empty_or_widget_send_error_uses_inline_fallback`: пустой результат не открывает Widget; сбой отправки возвращает старый inline-список с исходными callback action.
 - [ ] В обеих функциях заменить только построение/отображение списка: подготовить допустимые значения выбора, вызвать `render_station_widget(stations, title)`, отправить через `send_widget()`; сохранить удаление пользовательского сообщения и очистку `last_msg`.
 - [ ] Сохранить у текущего FSM ожидаемое поле (`DepName` или `DestName`), user_id, chat_id, message_id и однозначное соответствие отправляемого значения исходной строке. Не менять поисковый сервис и callback-обработчики выбора.
-- [ ] Запустить .\.venv\Scripts\python.exe -m pytest test\\station_widget\\test_flow.py -q`.
+- [ ] Запустить `.\.venv\Scripts\python.exe -m pytest test\station_widget\test_flow.py -q`.
 - [ ] Критерий: поиск и inline fallback работают как прежде; непустой список отправляется Widget; один результат не выбирается автоматически.
 
 ### Задача 3. Выбор станции через существующий widget_query
@@ -86,15 +86,15 @@
 - [ ] В `handle_calendar_query()` отделить валидный контекст Widget станции от календаря до календарной обработки; календарные события и ответы оставить неизменными. Для станции переиспользовать существующую блокировку пользователя и тот же `answer_widget_query()`; ответить на каждый запрос в пределах 15 секунд.
 - [ ] Обновлять FSM только после серверной сверки пользователя, личного чата, состояния, message_id и соответствия выбора подготовленному списку. Очищать метаданные Widget при завершении/отмене; устаревшее событие после очистки состояния отклонять.
 - [ ] На успехе удалить сообщение Widget и вызвать существующий рендер меню. На отмене удалить Widget, не менять станцию и вернуть это же меню. Не менять `select_DepName()` и `select_DestName()`.
-- [ ] Запустить .\.venv\Scripts\python.exe -m pytest test\\station_widget\\test_flow.py test\\calendar_widget\\test_regression.py -q`.
+- [ ] Запустить `.\.venv\Scripts\python.exe -m pytest test\station_widget\test_flow.py test\calendar_widget\test_regression.py -q`.
 - [ ] Критерий: сценарии отправления, назначения, отмены, повторов и отказа проходят; регрессионная проверка подтверждает прежнее поведение календаря.
 
 ### Задача 4. Сквозная регрессия и приёмка
 
 **Файлы:** тесты в `test/station_widget/`; production-файлы из задач 1–3.
 
-- [ ] Запустить .\.venv\Scripts\python.exe -m pytest test\\station_widget test\\calendar_widget -q`; ожидаются все PASS.
-- [ ] Запустить .\.venv\Scripts\python.exe -m compileall handlers\\subscrib.py widgets\\station_widget.py`; ожидается код завершения 0.
+- [ ] Запустить `.\.venv\Scripts\python.exe -m pytest test\station_widget test\calendar_widget -q`.
+- [ ] Запустить `.\.venv\Scripts\python.exe -m compileall handlers\subscrib.py widgets\station_widget.py`.
 - [ ] Провести ручную проверку в тестовом личном чате Telegram: 1 результат, 5 и более результатов, переключение страниц, отмена, выбор обоих полей, двойное нажатие, недоступный Telegram API. Сверить узкий экран и макет.
 - [ ] Критерий: изменены только два production-файла, тесты добавлены только в указанные два файла; сценарии календаря проходят без изменений; требования и визуальный эталон соблюдены.
 
